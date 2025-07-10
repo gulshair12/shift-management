@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 interface StatsCardsProps {
   totalShifts: number;
-  thisMonth: number;
+  thisMonth: string;
   totalRevenue: number;
 }
 
@@ -12,6 +12,7 @@ export const StatsCards: React.FC<StatsCardsProps> = ({
   thisMonth,
   totalRevenue,
 }) => {
+  
   return (
     <div className="flex flex-col gap-4 py-4 sm:flex-row sm:flex-wrap sm:justify-center">
       <Card className="flex-1 min-w-[220px] max-w-[300px] mx-auto sm:mx-0">

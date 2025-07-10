@@ -52,20 +52,12 @@ export default function CalendarView() {
 
       <StatsCards
         totalShifts={shifts.count || 0}
-        thisMonth={
-          shifts.results
-            .filter((shift) => shift.date.includes(new Date().getMonth()))
-            .length.toString() || "0"
-        }
-        totalRevenue={
-          // Replace with proper calculation if available
-          shifts.results.reduce(
-            (sum, shift) =>
-              sum +
-              (typeof shift.chargeRate === "number" ? shift.chargeRate : 0),
-            0
-          )
-        }
+        thisMonth={shifts.results.length.toString()}
+        totalRevenue={shifts.results.reduce(
+          (sum, shift) =>
+            sum + (typeof shift.chargeRate === "number" ? shift.chargeRate : 0),
+          0
+        )}
       />
 
       {showForm && (
