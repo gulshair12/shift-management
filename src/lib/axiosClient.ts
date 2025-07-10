@@ -21,7 +21,19 @@ client.interceptors.request.use(async (config) => {
       },
     });
     token = data?.access_token ?? "";
-    setCookie("access_token", token, { path: "/", expires: data.token_expiry });
+    if (data.token_expiry) {
+      const expiryDate = new Date(data.token_expiry);
+      const now = new Date();
+      const diffMs = expiryDate.getTime() - now.getTime();
+      const diffDays = diffMs / (1000 * 60 * 60 * 24);
+
+      setCookie("access_token", token, {
+        path: "/",
+        expires: diffDays > 0 ? diffDays : 1, // fallback to 1 day minimum
+      });
+    } else {
+      setCookie("access_token", token, { path: "/" });
+    }
   }
 
   if (token && config.headers) {
