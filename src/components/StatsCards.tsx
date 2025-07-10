@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 interface StatsCardsProps {
   totalShifts: number;
-  thisMonth: string;
+  thisMonth: number;
   totalRevenue: number;
 }
 

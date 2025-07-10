@@ -77,7 +77,6 @@ export default function ShiftFormModal({ onClose, onCreated }: Props) {
           <Select
             value={timezone}
             onValueChange={(val) => setValue("timezone", val)}
-            className="w-full"
           >
             <SelectTrigger id="timezone" className="w-full">
               <SelectValue placeholder="Select timezone" />

@@ -57,10 +57,10 @@ const ShiftModal: React.FC<ShiftDetailsModalProps> = ({
     internalNote,
   } = shift;
 
-  let parsedDate: string = date
+  const parsedDate: string = date
     ? format(typeof date === "string" ? parseISO(date) : date, "M/d/yyyy")
     : "-";
-  let timeSlot: string = start && end ? `${start} - ${end}` : "-";
+  const timeSlot: string = start && end ? `${start} - ${end}` : "-";
 
   return (
     <div className="fixed inset-0 z-50 bg-black/30 flex items-center justify-center">
@@ -75,7 +75,6 @@ const ShiftModal: React.FC<ShiftDetailsModalProps> = ({
         <h2 className="text-2xl font-bold mb-6">Shift Details</h2>
 
         <div className="flex flex-col gap-8">
-         
           <div className="flex flex-col sm:flex-row gap-8">
             <div className="flex-1">
               <div className="flex items-center gap-2 font-semibold mb-2">

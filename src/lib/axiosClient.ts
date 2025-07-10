@@ -1,5 +1,4 @@
 import axios from "axios";
-import type { AxiosRequestConfig } from "axios";
 import { getCookie, setCookie } from "./cookies";
 
 const API_BASE: string = import.meta.env.VITE_API_BASE_URL as string;
@@ -8,7 +7,7 @@ const API_SECRET: string = import.meta.env.VITE_API_SECRET as string;
 
 const client = axios.create({ baseURL: API_BASE });
 
-client.interceptors.request.use(async (config: AxiosRequestConfig) => {
+client.interceptors.request.use(async (config) => {
   let token: string | undefined = getCookie("access_token");
   if (!token) {
     // fetch new token
@@ -22,13 +21,13 @@ client.interceptors.request.use(async (config: AxiosRequestConfig) => {
       },
     });
     token = data?.access_token ?? "";
-    setCookie("access_token", token, { path: "/", maxAge: data.token_expiry });
+    setCookie("access_token", token, { path: "/", expires: data.token_expiry });
   }
 
   if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`;
   } else if (token) {
-    config.headers = { Authorization: `Bearer ${token}` };
+    config.headers.set("Authorization", `Bearer ${token}`);
   }
 
   return config;

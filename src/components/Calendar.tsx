@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import {
   format,
   startOfMonth,
@@ -15,40 +15,13 @@ import {
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ShiftDetailsModal from "./ShiftModal";
 
-// Types for shifting data
-interface SiteInfo {
-  name?: string | null;
-  postcode?: string | null;
-}
-interface ClientInfo {
-  name?: string | null;
-  email?: string | null;
-}
-interface Shift {
-  id: string;
-  date: string;
-  start: string;
-  end: string;
-  timezone?: string | null;
-  chargeRate?: number | string | null;
-  payRate?: number | string | null;
-  siteInfo?: SiteInfo;
-  clientInfo?: ClientInfo;
-  notes?: string | null;
-  internalNote?: string | null;
-}
-
-interface CalendarProps {
-  shifts: { results: Shift[] };
-}
-
-const Calendar: React.FC<CalendarProps> = ({ shifts }) => {
+const Calendar = ({ shifts }: { shifts: any }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState<Shift | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
-  const events = (shifts.results || []).map((shift) => ({
+  const events = (shifts.results || []).map((shift: any) => ({
     ...shift,
     dateObj: parseISO(shift.date),
   }));
@@ -99,7 +72,7 @@ const Calendar: React.FC<CalendarProps> = ({ shifts }) => {
         formattedDate = format(day, "d");
         const cloneDay = day;
 
-        const dayEvents = events.filter((e) => isSameDay(e.dateObj, day));
+        const dayEvents = events.filter((e: any) => isSameDay(e.dateObj, day));
 
         days.push(
           <div
@@ -114,7 +87,7 @@ const Calendar: React.FC<CalendarProps> = ({ shifts }) => {
             onClick={() => setSelectedDate(cloneDay)}
           >
             <div className="text-xs text-gray-700">{formattedDate}</div>
-            {dayEvents.map((event) => (
+            {dayEvents.map((event: any) => (
               <div
                 key={event.id}
                 className="mt-1 p-1 bg-gray-200 rounded text-[11px] cursor-pointer hover:bg-purple-200"
